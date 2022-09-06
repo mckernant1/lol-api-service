@@ -5,7 +5,6 @@ plugins {
     id("io.spring.dependency-management") version "1.0.13.RELEASE"
     kotlin("jvm") version "1.6.21"
     kotlin("plugin.spring") version "1.6.21"
-    id("com.github.johnrengelman.shadow") version "7.1.0"
     application
 }
 
@@ -51,10 +50,4 @@ tasks.withType<KotlinCompile> {
 
 tasks.withType<Test> {
     useJUnitPlatform()
-}
-
-tasks.withType<com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar>() {
-    manifest {
-        attributes["Main-Class"] = "RunnerKt"
-    }
 }
