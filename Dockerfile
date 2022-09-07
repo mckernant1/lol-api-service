@@ -10,4 +10,4 @@ RUN mkdir /app
 
 COPY --from=build /app/build/libs/*SNAPSHOT.jar /app/app.jar
 
-ENTRYPOINT ["java", "-Xms1G", "-Xmx1G", "-jar", "app/app.jar"]
+ENTRYPOINT ["java", "-Xms2G", "-Xmx2G", "-jar", "app/app.jar"]
