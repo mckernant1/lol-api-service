@@ -6,7 +6,7 @@ import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import com.amazonaws.services.dynamodbv2.model.QueryRequest
 import com.amazonaws.services.dynamodbv2.model.ScanRequest
 import com.github.mckernant1.extensions.boolean.falseIfNull
-import com.github.mckernant1.lol.esports.api.Tournament
+import com.github.mckernant1.lol.esports.api.models.Tournament
 import com.google.gson.Gson
 import com.mckernant1.lol.esports.api.config.LEAGUES_TABLE_NAME
 import com.mckernant1.lol.esports.api.config.TOURNAMENTS_TABLE_NAME

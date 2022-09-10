@@ -1,6 +1,6 @@
 package com.mckernant1.lol.esports.api.util
 
-import com.github.mckernant1.lol.esports.api.Tournament
+import com.github.mckernant1.lol.esports.api.models.Tournament
 import java.text.SimpleDateFormat
 import java.time.Instant
 

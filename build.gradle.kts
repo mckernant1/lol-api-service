@@ -28,7 +28,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 
-	implementation("com.github.mckernant1.lol:esports-api:0.0.8")
+	implementation("com.github.mckernant1.lol:esports-api:0.0.16")
 	implementation("com.github.mckernant1:kotlin-utils:0.0.31")
 	implementation("com.google.code.gson:gson:2.9.0")
 

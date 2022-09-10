@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.document.ItemUtils
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import com.amazonaws.services.dynamodbv2.model.QueryRequest
-import com.github.mckernant1.lol.esports.api.Match
+import com.github.mckernant1.lol.esports.api.models.Match
 import com.google.gson.Gson
 import com.mckernant1.lol.esports.api.config.MATCHES_TABLE_NAME
 import com.mckernant1.lol.esports.api.config.TOURNAMENTS_TABLE_NAME

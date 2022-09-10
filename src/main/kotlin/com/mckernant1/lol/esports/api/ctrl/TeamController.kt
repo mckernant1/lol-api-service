@@ -4,7 +4,7 @@ import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.amazonaws.services.dynamodbv2.document.ItemUtils
 import com.amazonaws.services.dynamodbv2.model.AttributeValue
 import com.amazonaws.services.dynamodbv2.model.ScanRequest
-import com.github.mckernant1.lol.esports.api.Team
+import com.github.mckernant1.lol.esports.api.models.Team
 import com.google.gson.Gson
 import com.mckernant1.lol.esports.api.config.TEAMS_TABLE_NAME
 import com.mckernant1.lol.esports.api.util.mapToObject
