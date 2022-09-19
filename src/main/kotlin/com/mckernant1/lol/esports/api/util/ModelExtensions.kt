@@ -3,6 +3,7 @@ package com.mckernant1.lol.esports.api.util
 import com.github.mckernant1.lol.esports.api.models.Tournament
 import java.text.SimpleDateFormat
 import java.time.Instant
+import java.time.temporal.ChronoUnit
 
 
 fun Tournament.startDateAsDate(): Instant? {
@@ -21,4 +22,9 @@ fun Tournament.endDateAsDate(): Instant? {
     } catch (e: Exception) {
         null
     }
+}
+
+fun Tournament.isOngoing(): Boolean {
+    val now: Instant = Instant.now().truncatedTo(ChronoUnit.DAYS)
+    return this.startDateAsDate().orEpoch() <= now && now <= this.endDateAsDate().orEpoch()
 }
