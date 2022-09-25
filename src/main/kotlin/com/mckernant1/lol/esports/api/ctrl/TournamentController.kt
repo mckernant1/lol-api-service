@@ -1,9 +1,7 @@
 package com.mckernant1.lol.esports.api.ctrl
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
 import com.github.mckernant1.extensions.boolean.falseIfNull
 import com.github.mckernant1.lol.esports.api.models.Tournament
-import com.google.gson.Gson
 import com.mckernant1.lol.esports.api.svc.LeagueService
 import com.mckernant1.lol.esports.api.svc.TournamentService
 import com.mckernant1.lol.esports.api.util.endDateAsDate
@@ -57,14 +55,18 @@ class TournamentController(
     fun getMostRecentTournament(@PathVariable leagueId: String): Tournament? {
         leagueService.assertLeagueExists(leagueId)
 
-        val tourneys = tournamentService.getTournamentsForLeague(leagueId)
+        var tourneys = tournamentService.getTournamentsForLeague(leagueId)
             .filter {
                 it.startDateAsDate()
                     ?.minus(7, ChronoUnit.DAYS)
                     ?.isBefore(Instant.now())
                     ?: false
             }.sortedByDescending { it.startDateAsDate()!! }
-            .toList()
+
+        // Worlds has unofficial tournaments associated with it for some reason. So we should remove it
+        if (leagueId.equals("WCS", ignoreCase = true)) {
+            tourneys = tourneys.filter { it.isOfficial.falseIfNull() }
+        }
 
         return tourneys.find { it.isOngoing() } ?: tourneys.firstOrNull()
     }
