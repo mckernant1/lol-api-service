@@ -24,22 +24,22 @@ repositories {
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
+    implementation("org.springframework.boot:spring-boot-starter-graphql")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
 
     implementation("com.github.mckernant1.lol:esports-api:0.0.16")
-    implementation("com.github.mckernant1:kotlin-utils:0.0.31")
-    implementation("com.google.code.gson:gson:2.10")
+    implementation("com.github.mckernant1:kotlin-utils:0.0.33")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
 
 
     implementation("org.slf4j:slf4j-api:2.0.5")
     implementation("org.apache.logging.log4j:log4j-core:2.19.0")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.19.0")
 
-
-    implementation(platform("com.amazonaws:aws-java-sdk-bom:1.12.347"))
-    implementation("com.amazonaws:aws-java-sdk-dynamodb")
+    implementation(platform("software.amazon.awssdk:bom:2.18.25"))
+    implementation("software.amazon.awssdk:dynamodb-enhanced")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test")
 }

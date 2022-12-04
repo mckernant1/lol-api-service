@@ -1,48 +1,39 @@
 package com.mckernant1.lol.esports.api.svc
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
-import com.amazonaws.services.dynamodbv2.document.ItemUtils
-import com.amazonaws.services.dynamodbv2.model.AttributeValue
-import com.amazonaws.services.dynamodbv2.model.ScanRequest
 import com.github.mckernant1.lol.esports.api.models.Team
-import com.google.gson.Gson
 import com.mckernant1.lol.esports.api.config.TEAMS_TABLE_NAME
 import com.mckernant1.lol.esports.api.util.mapToObject
-import kotlin.jvm.Throws
+import com.mckernant1.lol.esports.api.util.toObject
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient
+import software.amazon.awssdk.services.dynamodb.model.AttributeValue
 
 @Service
 class TeamService(
-    private val ddb: AmazonDynamoDB,
-    private val gson: Gson
+    private val ddb: DynamoDbClient
 ) {
 
     @Throws(ResponseStatusException::class)
     fun assertTeamExists(teamId: String) {
-        ddb.getItem(TEAMS_TABLE_NAME, mapOf("teamId" to AttributeValue(teamId))).item
-            ?: throw ResponseStatusException(
-                HttpStatus.NOT_FOUND,
-                "teamId '$teamId' does not exist",
-            )
+        getTeam(teamId) ?: throw ResponseStatusException(
+            HttpStatus.NOT_FOUND,
+            "teamId '$teamId' does not exist",
+        )
     }
 
     fun getTeam(teamId: String): Team? {
-        val item = ddb.getItem(
-            TEAMS_TABLE_NAME,
-            mapOf(
-                "teamId" to AttributeValue(teamId)
-            )
-        ).item ?: return null
+        val item = ddb.getItem {
+            it.tableName(TEAMS_TABLE_NAME)
+            it.key(mapOf("teamId" to AttributeValue.fromS(teamId)))
+        }.item() ?: return null
 
-        return gson.mapToObject(ItemUtils.toItem(item).asMap(), Team::class)
+        return item.toObject()
     }
 
-    fun scanTeams(): Sequence<Team> = ddb.scan(
-        ScanRequest(TEAMS_TABLE_NAME)
-    ).items.asSequence()
-        .map { ItemUtils.toItem(it).asMap() }
-        .map { gson.mapToObject(it, Team::class) }
+    fun scanTeams(): Sequence<Team> = ddb.scanPaginator {
+        it.tableName(TEAMS_TABLE_NAME)
+    }.items().asSequence().mapToObject()
 
 }

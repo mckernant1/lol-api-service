@@ -1,31 +1,32 @@
 package com.mckernant1.lol.esports.api.svc
 
-import com.amazonaws.services.dynamodbv2.AmazonDynamoDB
-import com.amazonaws.services.dynamodbv2.document.ItemUtils
-import com.amazonaws.services.dynamodbv2.model.AttributeValue
-import com.amazonaws.services.dynamodbv2.model.QueryRequest
 import com.github.mckernant1.lol.esports.api.models.Player
-import com.google.gson.Gson
 import com.mckernant1.lol.esports.api.config.PLAYERS_TABLE_NAME
 import com.mckernant1.lol.esports.api.config.PLAYERS_TABLE_TEAM_INDEX
 import com.mckernant1.lol.esports.api.util.mapToObject
 import org.springframework.stereotype.Service
+import software.amazon.awssdk.services.dynamodb.DynamoDbClient
 
 @Service
 class PlayerService(
-    private val ddb: AmazonDynamoDB,
-    private val gson: Gson
+    private val ddb: DynamoDbClient
 ) {
+    fun getPlayersOnTeam(teamId: String): Sequence<Player> = ddb.queryPaginator {
+        it.tableName(PLAYERS_TABLE_NAME)
+        it.indexName(PLAYERS_TABLE_TEAM_INDEX)
+        it.keyConditionExpression("teamId = :desiredTeam")
+        it.expressionAttributeValues(
+            mapOf(
+                ":desiredTeam" to software.amazon.awssdk.services.dynamodb.model.AttributeValue.fromS(
+                    teamId
+                )
+            )
+        )
+    }.items().asSequence().mapToObject()
 
 
-    fun getPlayersOnTeam(teamId: String): Sequence<Player> = ddb.query(
-        QueryRequest(PLAYERS_TABLE_NAME)
-            .withIndexName(PLAYERS_TABLE_TEAM_INDEX)
-            .withKeyConditionExpression("teamId = :desiredTeam")
-            .withExpressionAttributeValues(mapOf(":desiredTeam" to AttributeValue(teamId)))
-    ).items.asSequence()
-        .map { ItemUtils.toItem(it).asMap() }
-        .map { gson.mapToObject(it, Player::class) }
-
+    fun scanPlayers(): Sequence<Player> = ddb.scanPaginator {
+        it.tableName(PLAYERS_TABLE_NAME)
+    }.items().asSequence().mapToObject()
 
 }

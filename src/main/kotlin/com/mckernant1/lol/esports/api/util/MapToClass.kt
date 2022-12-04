@@ -1,8 +1,15 @@
 package com.mckernant1.lol.esports.api.util
 
-import com.google.gson.Gson
-import kotlin.reflect.KClass
+import com.fasterxml.jackson.databind.ObjectMapper
 
-fun <T : Any> Gson.mapToObject(map: Map<String, Any>, clazz: KClass<T>) : T {
-    return this.fromJson(this.toJson(map), clazz.java)
+
+val objectMapper by lazy {
+    ObjectMapper()
+}
+
+inline fun <reified T> Map<String, Any>.toObject(): T =
+    objectMapper.convertValue(this, T::class.java)
+
+inline fun <reified T : Any> Sequence<Map<String, Any>>.mapToObject(): Sequence<T> = map {
+    objectMapper.convertValue(it, T::class.java)
 }
