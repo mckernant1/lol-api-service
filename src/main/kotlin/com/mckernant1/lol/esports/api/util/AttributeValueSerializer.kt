@@ -24,7 +24,7 @@ class AttributeValueSerializer private constructor() : JsonSerializer<AttributeV
         if (av == null) {
             gen.writeNull()
         } else {
-            if (av.m() !== EMPTY_ATTR_MAP) {
+            if (av.m() != EMPTY_ATTR_MAP) {
                 gen.writeStartObject()
                 val map = av.m()
                 for ((key, value) in map) {
@@ -32,7 +32,7 @@ class AttributeValueSerializer private constructor() : JsonSerializer<AttributeV
                     serialize(value, gen, serializers)
                 }
                 gen.writeEndObject()
-            } else if (av.l() !== EMPTY_ATTR_LIST) {
+            } else if (av.l() != EMPTY_ATTR_LIST) {
                 val list = av.l()
                 gen.writeStartArray()
                 for (a in list) {
@@ -49,13 +49,13 @@ class AttributeValueSerializer private constructor() : JsonSerializer<AttributeV
                 gen.writeNull()
             } else if (av.b() != null) {
                 gen.writeBinary(av.b().asByteArray())
-            } else if (av.ss() !== EMPTY_ATTR_LIST) {
+            } else if (av.ss() != EMPTY_ATTR_LIST) {
                 val list = av.ss().toTypedArray()
                 gen.writeArray(list, 0, list.size)
-            } else if (av.bs() !== EMPTY_ATTR_LIST) {
+            } else if (av.bs() != EMPTY_ATTR_LIST) {
                 val list = av.ss().toTypedArray()
                 gen.writeArray(list, 0, list.size)
-            } else if (av.ns() !== EMPTY_ATTR_LIST) {
+            } else if (av.ns() != EMPTY_ATTR_LIST) {
                 val list = av.ss().toTypedArray()
                 gen.writeArray(list, 0, list.size)
             } else if (av.nul() != null) {
