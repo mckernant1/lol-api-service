@@ -1,9 +1,10 @@
 package com.mckernant1.lol.esports.api.svc
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.github.mckernant1.extensions.convert.MapConverters.mapToObject
 import com.github.mckernant1.lol.esports.api.models.Tournament
 import com.mckernant1.lol.esports.api.config.TOURNAMENTS_TABLE_NAME
 import com.mckernant1.lol.esports.api.config.TOURNAMENT_INDEX
-import com.mckernant1.lol.esports.api.util.mapToObject
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -12,7 +13,8 @@ import software.amazon.awssdk.services.dynamodb.model.AttributeValue
 
 @Service
 class TournamentService(
-    private val ddb: DynamoDbClient
+    private val ddb: DynamoDbClient,
+    private val objectMapper: ObjectMapper
 ) {
 
     @Throws(ResponseStatusException::class)
@@ -25,7 +27,7 @@ class TournamentService(
 
     fun scanTournaments(): Sequence<Tournament> = ddb.scanPaginator {
         it.tableName(TOURNAMENTS_TABLE_NAME)
-    }.items().asSequence().mapToObject()
+    }.items().asSequence().mapToObject(objectMapper)
 
 
     fun getTournamentsForLeague(leagueId: String): Sequence<Tournament> = ddb.queryPaginator {
@@ -34,7 +36,7 @@ class TournamentService(
         it.expressionAttributeValues(
             mapOf(":desiredLeague" to AttributeValue.fromS(leagueId))
         )
-    }.items().asSequence().mapToObject()
+    }.items().asSequence().mapToObject(objectMapper)
 
 
     fun getTournamentById(tournamentId: String): Tournament? = ddb.queryPaginator {
@@ -46,7 +48,7 @@ class TournamentService(
         )
     }.items()
         .asSequence()
-        .mapToObject<Tournament>()
+        .mapToObject<Tournament>(objectMapper)
         .firstOrNull()
 
 
