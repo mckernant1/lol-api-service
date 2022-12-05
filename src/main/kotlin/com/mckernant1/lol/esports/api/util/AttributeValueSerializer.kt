@@ -3,7 +3,7 @@ package com.mckernant1.lol.esports.api.util
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.github.mckernant1.slf4j.logger
+import com.github.mckernant1.logging.Slf4j.logger
 import org.slf4j.Logger
 import software.amazon.awssdk.core.util.DefaultSdkAutoConstructList
 import software.amazon.awssdk.core.util.DefaultSdkAutoConstructMap
@@ -50,29 +50,14 @@ class AttributeValueSerializer private constructor() : JsonSerializer<AttributeV
             } else if (av.b() != null) {
                 gen.writeBinary(av.b().asByteArray())
             } else if (av.ss() !== EMPTY_ATTR_LIST) {
-                val list = av.ss()
-                val size = list.size
-                gen.writeStartArray(size)
-                for (i in 0 until size) {
-                    gen.writeString(list[i])
-                }
-                gen.writeEndArray()
+                val list = av.ss().toTypedArray()
+                gen.writeArray(list, 0, list.size)
             } else if (av.bs() !== EMPTY_ATTR_LIST) {
-                val list = av.bs()
-                val size = list.size
-                gen.writeStartArray(size)
-                for (i in 0 until size) {
-                    gen.writeBinary(list[i].asByteArray())
-                }
-                gen.writeEndArray()
+                val list = av.ss().toTypedArray()
+                gen.writeArray(list, 0, list.size)
             } else if (av.ns() !== EMPTY_ATTR_LIST) {
-                val list = av.ns()
-                val size = list.size
-                gen.writeStartArray(size)
-                for (i in 0 until size) {
-                    gen.writeNumber(BigDecimal(list[i]))
-                }
-                gen.writeEndArray()
+                val list = av.ss().toTypedArray()
+                gen.writeArray(list, 0, list.size)
             } else if (av.nul() != null) {
                 gen.writeNull()
             } else {

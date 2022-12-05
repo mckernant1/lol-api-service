@@ -30,7 +30,7 @@ dependencies {
 
 
     implementation("com.github.mckernant1.lol:esports-api:0.0.16")
-    implementation("com.github.mckernant1:kotlin-utils:0.0.33")
+    implementation("com.github.mckernant1:kotlin-utils:0.0.34")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.1")
 
 
