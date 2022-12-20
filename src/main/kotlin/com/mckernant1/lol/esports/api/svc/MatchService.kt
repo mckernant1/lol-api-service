@@ -20,11 +20,15 @@ class MatchService(
         it.expressionAttributeValues(
             mapOf(":desiredTourney" to AttributeValue.fromS(tournamentId))
         )
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
     fun scanMatches(): Sequence<Match> = ddb.scanPaginator {
         it.tableName(MATCHES_TABLE_NAME)
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
 
 }

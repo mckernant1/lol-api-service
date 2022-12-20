@@ -27,7 +27,9 @@ class TournamentService(
 
     fun scanTournaments(): Sequence<Tournament> = ddb.scanPaginator {
         it.tableName(TOURNAMENTS_TABLE_NAME)
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
 
     fun getTournamentsForLeague(leagueId: String): Sequence<Tournament> = ddb.queryPaginator {
@@ -36,7 +38,9 @@ class TournamentService(
         it.expressionAttributeValues(
             mapOf(":desiredLeague" to AttributeValue.fromS(leagueId))
         )
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
 
     fun getTournamentById(tournamentId: String): Tournament? = ddb.queryPaginator {
@@ -48,6 +52,7 @@ class TournamentService(
         )
     }.items()
         .asSequence()
+        .filter { it.isNotEmpty() }
         .mapToObject<Tournament>(objectMapper)
         .firstOrNull()
 

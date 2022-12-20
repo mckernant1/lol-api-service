@@ -24,11 +24,15 @@ class PlayerService(
                 )
             )
         )
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
 
     fun scanPlayers(): Sequence<Player> = ddb.scanPaginator {
         it.tableName(PLAYERS_TABLE_NAME)
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
 }

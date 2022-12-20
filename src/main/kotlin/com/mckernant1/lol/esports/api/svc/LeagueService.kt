@@ -5,6 +5,7 @@ import com.github.mckernant1.extensions.convert.MapConverters.mapToObject
 import com.github.mckernant1.extensions.convert.MapConverters.toObject
 import com.github.mckernant1.lol.esports.api.models.League
 import com.mckernant1.lol.esports.api.config.LEAGUES_TABLE_NAME
+import com.mckernant1.lol.esports.api.util.itemOrNull
 import org.springframework.http.HttpStatus
 import org.springframework.stereotype.Service
 import org.springframework.web.server.ResponseStatusException
@@ -27,14 +28,16 @@ class LeagueService(
 
     fun scanLeagues(): Sequence<League> = ddb.scanPaginator {
         it.tableName(LEAGUES_TABLE_NAME)
-    }.items().asSequence().mapToObject(objectMapper)
+    }.items().asSequence()
+        .filter { it.isNotEmpty() }
+        .mapToObject(objectMapper)
 
 
     fun getLeague(leagueId: String): League? {
         val item = ddb.getItem {
             it.tableName(LEAGUES_TABLE_NAME)
             it.key(mapOf("leagueId" to AttributeValue.fromS(leagueId)))
-        }.item() ?: return null
+        }.itemOrNull() ?: return null
 
         return item.toObject(objectMapper)
     }
