@@ -10,33 +10,77 @@ import com.mckernant1.lol.esports.api.svc.MatchService
 import com.mckernant1.lol.esports.api.svc.PlayerService
 import com.mckernant1.lol.esports.api.svc.TeamService
 import com.mckernant1.lol.esports.api.svc.TournamentService
+import org.springframework.graphql.data.method.annotation.Argument
 import org.springframework.graphql.data.method.annotation.QueryMapping
+import org.springframework.graphql.data.method.annotation.SchemaMapping
+import org.springframework.stereotype.Controller
 
-//@Controller
-//@RequestMapping("/graphql")
+@Controller
 class GraphQLController(
-    val leagueService: LeagueService,
-    val tournamentService: TournamentService,
-    val matchService: MatchService,
-    val playerService: PlayerService,
-    val teamService: TeamService
+    private val leagueService: LeagueService,
+    private val tournamentService: TournamentService,
+    private val matchService: MatchService,
+    private val playerService: PlayerService,
+    private val teamService: TeamService
 ) {
 
+    // LEAGUES
 
     @QueryMapping
     fun leagues(): List<League> = leagueService.scanLeagues().toList()
 
     @QueryMapping
+    fun leagueById(@Argument leagueId: String): League? = leagueService.getLeague(leagueId)
+
+    @SchemaMapping
+    fun tournaments(league: League): List<Tournament> = tournamentService.getTournamentsForLeague(league.leagueId).toList()
+
+    // TOURNAMENT
+
+    @QueryMapping
     fun tournaments(): List<Tournament> = tournamentService.scanTournaments().toList()
 
     @QueryMapping
+    fun tournamentById(@Argument tournamentId: String): Tournament? = tournamentService.getTournamentById(tournamentId)
+
+    @SchemaMapping
+    fun league(tournament: Tournament): League? = leagueService.getLeague(tournament.leagueId)
+
+    @SchemaMapping
+    fun matches(tournament: Tournament): List<Match> = matchService.getMatchesForTournament(tournament.tournamentId).toList()
+
+    // MATCHES
+
+    @QueryMapping
     fun matches(): List<Match> = matchService.scanMatches().toList()
+
+    @SchemaMapping
+    fun redTeam(match: Match): Team? = teamService.getTeam(match.redTeamId)
+
+    @SchemaMapping
+    fun blueTeam(match: Match): Team? = teamService.getTeam(match.blueTeamId)
+
+    // PLAYERS
 
     @QueryMapping
     fun players(): List<Player> = playerService.scanPlayers().toList()
 
     @QueryMapping
-    fun teamService(): List<Team> = teamService.scanTeams().toList()
+    fun playerById(@Argument playerId: String): Player? = playerService.getPlayerById(playerId)
+
+    @SchemaMapping
+    fun team(player: Player): Team? = teamService.getTeam(player.teamId!!)
+
+    // TEAMS
+
+    @QueryMapping
+    fun teams(): List<Team> = teamService.scanTeams().toList()
+
+    @QueryMapping
+    fun teamById(@Argument teamId: String): Team? = teamService.getTeam(teamId)
+
+    @SchemaMapping
+    fun players(team: Team): List<Player> = playerService.getPlayersOnTeam(team.teamId).toList()
 
 
 }
