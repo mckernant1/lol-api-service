@@ -21,10 +21,11 @@ class RequestLoggingFilter : OncePerRequestFilter() {
         response: HttpServletResponse,
         filterChain: FilterChain
     ) {
-        val token = UUID.randomUUID().toString()
-        MDC.put("RequestId", token)
+        val requestId = UUID.randomUUID().toString()
+        MDC.put("RequestId", requestId)
 
         logger.info("START")
+        response.addHeader("X-Request-Id", requestId)
 
         val timeTaken = measureDuration {
             filterChain.doFilter(request, response)
