@@ -1,7 +1,7 @@
 package com.mckernant1.lol.esports.api.ctrl
 
-import com.github.mckernant1.extensions.boolean.falseIfNull
-import com.github.mckernant1.lol.esports.api.models.Tournament
+import com.mckernant1.commons.extensions.boolean.falseIfNull
+import com.mckernant1.lol.esports.api.models.Tournament
 import com.mckernant1.lol.esports.api.svc.LeagueService
 import com.mckernant1.lol.esports.api.svc.TournamentService
 import com.mckernant1.lol.esports.api.util.endDateAsDate

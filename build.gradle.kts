@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("org.springframework.boot") version "3.0.0"
     id("io.spring.dependency-management") version "1.1.0"
-    kotlin("jvm") version "1.7.21"
+    kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "1.7.21"
     application
 }
@@ -37,8 +37,8 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // Utils
-    implementation("com.github.mckernant1.lol:esports-api:0.0.22")
-    implementation("com.github.mckernant1:kotlin-utils:0.0.34")
+    implementation("com.mckernant1.lol:esports-api:0.1.0")
+    implementation("com.mckernant1.commons:kotlin-utils:0.2.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
 
     // Logging

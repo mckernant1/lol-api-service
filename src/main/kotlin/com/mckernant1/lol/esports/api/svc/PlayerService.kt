@@ -1,9 +1,9 @@
 package com.mckernant1.lol.esports.api.svc
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.mckernant1.extensions.convert.MapConverters.mapToObject
-import com.github.mckernant1.extensions.convert.MapConverters.toObject
-import com.github.mckernant1.lol.esports.api.models.Player
+import com.mckernant1.commons.extensions.convert.MapConverters.mapToObject
+import com.mckernant1.commons.extensions.convert.MapConverters.toObject
+import com.mckernant1.lol.esports.api.models.Player
 import com.mckernant1.lol.esports.api.config.PLAYERS_TABLE_NAME
 import com.mckernant1.lol.esports.api.config.PLAYERS_TABLE_TEAM_INDEX
 import org.springframework.stereotype.Service

@@ -1,6 +1,6 @@
 package com.mckernant1.lol.esports.api.ctrl
 
-import com.github.mckernant1.lol.esports.api.models.Match
+import com.mckernant1.lol.esports.api.models.Match
 import com.mckernant1.lol.esports.api.svc.MatchService
 import com.mckernant1.lol.esports.api.svc.TournamentService
 import org.springframework.web.bind.annotation.GetMapping

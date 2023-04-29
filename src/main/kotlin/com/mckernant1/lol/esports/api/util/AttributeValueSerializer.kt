@@ -3,7 +3,7 @@ package com.mckernant1.lol.esports.api.util
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.github.mckernant1.logging.Slf4j.logger
+import com.mckernant1.commons.logging.Slf4j.logger
 import org.slf4j.Logger
 import software.amazon.awssdk.core.util.DefaultSdkAutoConstructList
 import software.amazon.awssdk.core.util.DefaultSdkAutoConstructMap

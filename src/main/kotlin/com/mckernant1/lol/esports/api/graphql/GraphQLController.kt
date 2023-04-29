@@ -1,10 +1,10 @@
 package com.mckernant1.lol.esports.api.graphql
 
-import com.github.mckernant1.lol.esports.api.models.League
-import com.github.mckernant1.lol.esports.api.models.Match
-import com.github.mckernant1.lol.esports.api.models.Player
-import com.github.mckernant1.lol.esports.api.models.Team
-import com.github.mckernant1.lol.esports.api.models.Tournament
+import com.mckernant1.lol.esports.api.models.League
+import com.mckernant1.lol.esports.api.models.Match
+import com.mckernant1.lol.esports.api.models.Player
+import com.mckernant1.lol.esports.api.models.Team
+import com.mckernant1.lol.esports.api.models.Tournament
 import com.mckernant1.lol.esports.api.svc.LeagueService
 import com.mckernant1.lol.esports.api.svc.MatchService
 import com.mckernant1.lol.esports.api.svc.PlayerService

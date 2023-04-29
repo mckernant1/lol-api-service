@@ -1,8 +1,8 @@
 package com.mckernant1.lol.esports.api.svc
 
 import com.fasterxml.jackson.databind.ObjectMapper
-import com.github.mckernant1.extensions.convert.MapConverters.mapToObject
-import com.github.mckernant1.lol.esports.api.models.Tournament
+import com.mckernant1.commons.extensions.convert.MapConverters.mapToObject
+import com.mckernant1.lol.esports.api.models.Tournament
 import com.mckernant1.lol.esports.api.config.TOURNAMENTS_TABLE_NAME
 import com.mckernant1.lol.esports.api.config.TOURNAMENT_INDEX
 import org.springframework.http.HttpStatus

@@ -1,6 +1,6 @@
 package com.mckernant1.lol.esports.api.ctrl
 
-import com.github.mckernant1.lol.esports.api.models.Player
+import com.mckernant1.lol.esports.api.models.Player
 import com.mckernant1.lol.esports.api.svc.PlayerService
 import com.mckernant1.lol.esports.api.svc.TeamService
 import org.springframework.web.bind.annotation.GetMapping
