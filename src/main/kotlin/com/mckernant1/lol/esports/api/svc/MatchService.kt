@@ -22,13 +22,15 @@ class MatchService(
         )
     }.items().asSequence()
         .filter { it.isNotEmpty() }
-        .mapToObject(objectMapper)
+        .mapToObject<Match>(objectMapper)
+        .distinctBy { Triple(it.redTeamId, it.blueTeamId, it.startTime) }
 
     fun scanMatches(): Sequence<Match> = ddb.scanPaginator {
         it.tableName(MATCHES_TABLE_NAME)
     }.items().asSequence()
         .filter { it.isNotEmpty() }
-        .mapToObject(objectMapper)
+        .mapToObject<Match>(objectMapper)
+        .distinctBy { Triple(it.redTeamId, it.blueTeamId, it.startTime) }
 
 
 }
