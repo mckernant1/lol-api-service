@@ -23,7 +23,9 @@ type Query {
 
     players: [Player]!
 
-    playerById(playerId: String): Player
+    playerById(teamId: String, playerId: String): Player
+
+    playersById(playerId: String): [Player]
 
     teams: [Team]!
 

@@ -29,15 +29,32 @@ class PlayerService(
         .filter { it.isNotEmpty() }
         .mapToObject(objectMapper)
 
-    fun getPlayerById(playerId: String): Player? = ddb.queryPaginator {
+    
+    fun getPlayerById(teamId: String, playerId: String): Player? = ddb.getItem {
+        it.tableName(PLAYERS_TABLE_NAME)
+        it.key(
+            mapOf(
+                "teamId" to AttributeValue.fromS(teamId),
+                "id" to AttributeValue.fromS(playerId)
+            )
+        )
+    }.item()
+        ?.toObject(objectMapper)
+
+    /**
+     * Players can have the same id, but different teamId
+     */
+    fun getPlayersById(playerId: String): Sequence<Player> = ddb.queryPaginator {
         it.tableName(PLAYERS_TABLE_NAME)
         it.indexName(PLAYERS_ID_INDEX)
-        it.keyConditionExpression("id = :id")
-        it.expressionAttributeValues(mapOf("id" to AttributeValue.fromS(playerId)))
-    }.items().asSequence()
+        it.keyConditionExpression("id = :desiredId")
+        it.expressionAttributeValues(
+            mapOf(":desiredId" to AttributeValue.fromS(playerId))
+        )
+    }.items()
+        .asSequence()
         .filter { it.isNotEmpty() }
-        .mapToObject<Player>(objectMapper)
-        .firstOrNull()
+        .mapToObject(objectMapper)
 
 
     fun scanPlayers(): Sequence<Player> = ddb.scanPaginator {

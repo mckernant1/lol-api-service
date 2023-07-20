@@ -33,7 +33,8 @@ class GraphQLController(
     fun leagueById(@Argument leagueId: String): League? = leagueService.getLeague(leagueId)
 
     @SchemaMapping
-    fun tournaments(league: League): List<Tournament> = tournamentService.getTournamentsForLeague(league.leagueId).toList()
+    fun tournaments(league: League): List<Tournament> =
+        tournamentService.getTournamentsForLeague(league.leagueId).toList()
 
     // TOURNAMENT
 
@@ -47,7 +48,8 @@ class GraphQLController(
     fun league(tournament: Tournament): League? = leagueService.getLeague(tournament.leagueId)
 
     @SchemaMapping
-    fun matches(tournament: Tournament): List<Match> = matchService.getMatchesForTournament(tournament.tournamentId).toList()
+    fun matches(tournament: Tournament): List<Match> =
+        matchService.getMatchesForTournament(tournament.tournamentId).toList()
 
     // MATCHES
 
@@ -66,7 +68,12 @@ class GraphQLController(
     fun players(): List<Player> = playerService.scanPlayers().toList()
 
     @QueryMapping
-    fun playerById(@Argument playerId: String): Player? = playerService.getPlayerById(playerId)
+    fun playerById(@Argument teamId: String, @Argument playerId: String): Player? =
+        playerService.getPlayerById(teamId, playerId)
+
+    @QueryMapping
+    fun playersById(@Argument playerId: String): List<Player> =
+        playerService.getPlayersById(playerId).toList()
 
     @SchemaMapping
     fun team(player: Player): Team? = teamService.getTeam(player.teamId!!)
