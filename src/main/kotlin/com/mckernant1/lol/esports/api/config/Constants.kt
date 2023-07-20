@@ -5,7 +5,7 @@ internal const val MATCHES_TABLE_NAME = "Matches"
 internal const val LEAGUES_TABLE_NAME = "Leagues"
 
 internal const val PLAYERS_TABLE_NAME = "Players"
-internal const val PLAYERS_TABLE_TEAM_INDEX = "teamId-id-index"
+internal const val PLAYERS_ID_INDEX = "id-index"
 
 internal const val TEAMS_TABLE_NAME = "Teams"
 
