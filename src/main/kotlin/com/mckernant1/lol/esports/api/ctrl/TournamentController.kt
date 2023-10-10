@@ -44,7 +44,7 @@ class TournamentController(
     }
 
     private val tournamentsForLeagueCache: LoadingCache<String, List<Tournament>> = CacheBuilder.newBuilder()
-        .expireAfterWrite(Duration.ofMinutes(60))
+        .expireAfterWrite(Duration.ofHours(12))
         .build(
             CacheLoader.from { leagueId ->
                 tournamentService
