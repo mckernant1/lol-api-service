@@ -40,6 +40,7 @@ dependencies {
     implementation("com.mckernant1.lol:esports-api:0.1.0")
     implementation("com.mckernant1.commons:kotlin-utils:0.2.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
+    implementation("com.google.guava:guava:32.1.2-jre")
 
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.5")

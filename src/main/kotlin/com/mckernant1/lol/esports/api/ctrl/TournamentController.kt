@@ -1,5 +1,8 @@
 package com.mckernant1.lol.esports.api.ctrl
 
+import com.google.common.cache.CacheBuilder
+import com.google.common.cache.CacheLoader
+import com.google.common.cache.LoadingCache
 import com.mckernant1.commons.extensions.boolean.falseIfNull
 import com.mckernant1.lol.esports.api.models.Tournament
 import com.mckernant1.lol.esports.api.svc.LeagueService
@@ -12,6 +15,7 @@ import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.PathVariable
 import org.springframework.web.bind.annotation.RestController
 import org.springframework.web.server.ResponseStatusException
+import java.time.Duration
 import java.time.Instant
 import java.time.temporal.ChronoUnit
 
@@ -39,13 +43,20 @@ class TournamentController(
         )
     }
 
+    private val tournamentsForLeagueCache: LoadingCache<String, List<Tournament>> = CacheBuilder.newBuilder()
+        .expireAfterWrite(Duration.ofMinutes(60))
+        .build(
+            CacheLoader.from { leagueId ->
+                tournamentService
+                    .getTournamentsForLeague(leagueId)
+                    .toList()
+            })
+
     @GetMapping("/tournaments/{leagueId}")
     fun getTournamentForLeague(@PathVariable leagueId: String): List<Tournament> {
         leagueService.assertLeagueExists(leagueId)
 
-        return tournamentService
-            .getTournamentsForLeague(leagueId)
-            .toList()
+        return tournamentsForLeagueCache[leagueId]
     }
 
     /**
