@@ -1,11 +1,10 @@
-FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/openjdk:17 AS build
+FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/eclipse-temurin:17-jammy AS build
 RUN mkdir /app
-RUN microdnf install findutils
 COPY . /app
 WORKDIR /app
 RUN ./gradlew build --no-daemon
 
-FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/openjdk:17-jdk-slim
+FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/eclipse-temurin:17-jre-jammy
 
 RUN mkdir /app
 
