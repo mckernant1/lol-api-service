@@ -25,6 +25,7 @@ class LeagueController(
     private val leagueCache: LoadingCache<String, League> = CacheBuilder.newBuilder()
         .expireAfterAccess(Duration.ofMinutes(30))
         .expireAfterWrite(Duration.ofHours(12))
+        .recordStats()
         .build(CacheLoader.from { leagueId ->
             leagueService.getLeague(leagueId)!!
         })

@@ -27,6 +27,7 @@ class MatchController(
 
     private val matchesForTournamentCache: LoadingCache<String, List<Match>> = CacheBuilder.newBuilder()
         .expireAfterWrite(Duration.ofMinutes(30))
+        .recordStats()
         .build(CacheLoader.from { tournamentId ->
             matchService.getMatchesForTournament(tournamentId)
                 .toList()
