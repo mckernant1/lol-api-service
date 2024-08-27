@@ -20,23 +20,12 @@ class MetricsConfig {
 
     @Bean
     fun defaultDimensions(): Set<Dimension> = setOf(
-        Dimension("Host", "${ProcessHandle.current().pid()}@${InetAddress.getLocalHost().hostName}"),
-
-        )
+        Dimension("Host", "${ProcessHandle.current().pid()}@${InetAddress.getLocalHost().hostName}")
+    )
 
     @Bean
-    @Profile("prod")
     fun metrics(
         cloudWatchClient: CloudWatchClient,
         dimensions: Set<Dimension>
     ): Metrics = CloudWatchMetrics(NAMESPACE, cloudWatchClient, dimensions)
-
-
-    @Bean
-    @Profile("!prod")
-    fun devMetrics(
-        dimensions: Set<Dimension>,
-        mapper: ObjectMapper
-    ): Metrics = NoopMetrics(NAMESPACE, dimensions, mapper)
-
 }
