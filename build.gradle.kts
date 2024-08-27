@@ -39,8 +39,9 @@ dependencies {
     // Utils
     implementation("com.mckernant1.lol:esports-api:0.1.0")
     implementation("com.mckernant1.commons:kotlin-utils:0.2.1")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
-    implementation("com.google.guava:guava:32.1.2-jre")
+    implementation("com.mckernant1.commons:metrics:0.0.5")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.17.0")
+    implementation("com.google.guava:guava:33.2.1-jre")
 
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.5")
@@ -48,8 +49,9 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.20.0")
 
     // AWS
-    implementation(platform("software.amazon.awssdk:bom:2.18.25"))
+    implementation(platform("software.amazon.awssdk:bom:2.27.12"))
     implementation("software.amazon.awssdk:dynamodb-enhanced")
+    implementation("software.amazon.awssdk:cloudwatch")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")

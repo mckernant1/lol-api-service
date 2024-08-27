@@ -5,6 +5,7 @@ import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
 import com.mckernant1.commons.extensions.boolean.falseIfNull
 import com.mckernant1.commons.extensions.time.Instants.isBeforeNow
+import com.mckernant1.lol.esports.api.metrics.PeriodicSubmitCacheStats
 import com.mckernant1.lol.esports.api.models.Match
 import com.mckernant1.lol.esports.api.svc.MatchService
 import com.mckernant1.lol.esports.api.svc.TournamentService
@@ -22,7 +23,7 @@ import java.time.temporal.ChronoUnit
 class MatchController(
     private val matchService: MatchService,
     private val tournamentService: TournamentService
-) {
+) : PeriodicSubmitCacheStats {
 
     private val matchesForTournamentCache: LoadingCache<String, List<Match>> = CacheBuilder.newBuilder()
         .expireAfterWrite(Duration.ofMinutes(30))
@@ -73,5 +74,9 @@ class MatchController(
             }.take(limit)
             .toList()
     }
+
+    override val caches: List<Pair<String, LoadingCache<out Any, out Any>>> = listOf(
+        "MatchesForTournamentCache" to matchesForTournamentCache,
+    )
 
 }

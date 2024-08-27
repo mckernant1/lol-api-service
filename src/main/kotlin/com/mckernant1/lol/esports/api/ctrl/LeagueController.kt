@@ -3,6 +3,7 @@ package com.mckernant1.lol.esports.api.ctrl
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
+import com.mckernant1.lol.esports.api.metrics.PeriodicSubmitCacheStats
 import com.mckernant1.lol.esports.api.models.League
 import com.mckernant1.lol.esports.api.svc.LeagueService
 import org.springframework.web.bind.annotation.GetMapping
@@ -14,7 +15,7 @@ import java.time.Duration
 @RestController
 class LeagueController(
     private val leagueService: LeagueService
-) {
+) : PeriodicSubmitCacheStats {
 
     @GetMapping("/leagues")
     fun getAllLeagues(): List<League> {
@@ -35,5 +36,9 @@ class LeagueController(
 
         return leagueCache[leagueId]
     }
+
+    override val caches: List<Pair<String, LoadingCache<out Any, out Any>>> = listOf(
+        "LeagueCache" to leagueCache
+    )
 
 }

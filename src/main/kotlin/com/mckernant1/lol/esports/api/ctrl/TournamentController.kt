@@ -4,6 +4,8 @@ import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
 import com.mckernant1.commons.extensions.boolean.falseIfNull
+import com.mckernant1.commons.metrics.Metrics
+import com.mckernant1.lol.esports.api.metrics.PeriodicSubmitCacheStats
 import com.mckernant1.lol.esports.api.models.Tournament
 import com.mckernant1.lol.esports.api.svc.LeagueService
 import com.mckernant1.lol.esports.api.svc.TournamentService
@@ -22,8 +24,11 @@ import java.time.temporal.ChronoUnit
 @RestController
 class TournamentController(
     private val tournamentService: TournamentService,
-    private val leagueService: LeagueService
-) {
+    private val leagueService: LeagueService,
+    private val metrics: Metrics
+) : PeriodicSubmitCacheStats {
+
+
 
     @GetMapping("/ongoing-tournaments")
     fun getOngoingTournaments(): List<Tournament> {
@@ -82,4 +87,7 @@ class TournamentController(
         return tourneys.find { it.isOngoing() } ?: tourneys.firstOrNull()
     }
 
+    override val caches: List<Pair<String, LoadingCache<out Any, out Any>>> = listOf(
+        "TournamentForLeagueCache" to tournamentsForLeagueCache
+    )
 }
