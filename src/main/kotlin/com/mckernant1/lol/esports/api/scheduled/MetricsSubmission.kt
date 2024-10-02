@@ -21,7 +21,7 @@ class MetricsSubmission(
         private const val CACHE_NAME = "CacheName"
     }
 
-    @Scheduled(fixedRate = 5, timeUnit = TimeUnit.MINUTES)
+    @Scheduled(fixedRate = 1, timeUnit = TimeUnit.DAYS)
     fun submitMetrics() {
         logger.info("Submitting periodic metrics")
         for ((cacheName, cache) in classesToSubmit.flatMap { it.caches }) {
