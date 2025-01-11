@@ -1,0 +1,3 @@
+[submodule "lol-grpc-models"]
+	path = lol-grpc-models
+	url = git@github.com:mckernant1/lol-grpc-models.git

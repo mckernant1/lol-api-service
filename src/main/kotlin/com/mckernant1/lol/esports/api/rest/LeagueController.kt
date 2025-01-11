@@ -1,4 +1,4 @@
-package com.mckernant1.lol.esports.api.ctrl
+package com.mckernant1.lol.esports.api.rest
 
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader

@@ -1,4 +1,4 @@
-package com.mckernant1.lol.esports.api.ctrl
+package com.mckernant1.lol.esports.api.rest
 
 import com.mckernant1.lol.esports.api.models.Player
 import com.mckernant1.lol.esports.api.svc.PlayerService
