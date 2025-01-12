@@ -3,7 +3,11 @@ name: Build and Push Docker Image to ECR
 on:
   push:
     branches:
-      - main  # Run this workflow on pushes to the 'main' branch
+      - main
+
+permissions:
+  id-token: write  # Required for OIDC authentication
+  contents: read   # Required to read the repository code
 
 jobs:
   build-and-push:
