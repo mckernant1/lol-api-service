@@ -34,3 +34,7 @@ jobs:
           push: true
           tags: ${{ secrets.ECR_REPOSITORY_URI }}/lol-api-service:latest
           context: .
+
+concurrency:
+  group: mckernant1-lol-api-service-build-push
+  cancel-in-progress: true
