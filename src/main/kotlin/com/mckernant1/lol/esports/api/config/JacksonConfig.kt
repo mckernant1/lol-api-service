@@ -1,5 +1,6 @@
 package com.mckernant1.lol.esports.api.config
 
+import com.fasterxml.jackson.databind.DeserializationFeature
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.databind.module.SimpleModule
 import com.mckernant1.lol.esports.api.util.AttributeValueSerializer
@@ -13,6 +14,7 @@ class JacksonConfig {
         registerModule(
             SimpleModule().addSerializer(AttributeValueSerializer.INSTANCE)
         )
+        configure(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false)
     }
 
 }
