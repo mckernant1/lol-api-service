@@ -43,7 +43,7 @@ dependencies {
     implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
 
     // Utils
-    implementation("com.mckernant1.lol:esports-api:0.1.0")
+    implementation("com.mckernant1.lol:esports-api:0.2.0")
     implementation("com.mckernant1.commons:kotlin-utils:0.2.1")
     implementation("com.mckernant1.commons:metrics:0.0.7")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
