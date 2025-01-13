@@ -1,5 +1,5 @@
 # Step 1: Build the Java application
-FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/eclipse-temurin:17-jammy AS build
+FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/eclipse-temurin:21-jammy AS build
 RUN mkdir /app
 COPY . /app
 WORKDIR /app
@@ -9,7 +9,7 @@ RUN ./gradlew build --no-daemon
 FROM 653528873951.dkr.ecr.us-west-2.amazonaws.com/docker-hub/library/nginx:1.27
 
 # Install Java runtime
-RUN apt-get update && apt-get install -y openjdk-17-jre-headless supervisor
+RUN apt-get update && apt-get install -y openjdk-21-jre-headless supervisor
 
 # Copy the built Java application
 RUN mkdir /app

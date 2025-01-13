@@ -12,7 +12,7 @@ plugins {
 
 group = "com.mckernant1.lol"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java.sourceCompatibility = JavaVersion.VERSION_21
 
 application {
     mainClass.set("com.mckernant1.lol.esports.api.RunnerKt")
@@ -114,7 +114,7 @@ protobuf {
 tasks.withType<KotlinCompile> {
     kotlinOptions {
         freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
+        jvmTarget = "21"
     }
 }
 
