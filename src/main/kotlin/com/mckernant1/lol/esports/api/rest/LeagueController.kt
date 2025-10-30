@@ -1,5 +1,7 @@
 package com.mckernant1.lol.esports.api.rest
 
+import com.google.common.base.Supplier
+import com.google.common.base.Suppliers
 import com.google.common.cache.CacheBuilder
 import com.google.common.cache.CacheLoader
 import com.google.common.cache.LoadingCache
@@ -17,9 +19,14 @@ class LeagueController(
     private val leagueService: LeagueService
 ) : PeriodicSubmitCacheStats {
 
+    private val allLeaguesCache: Supplier<List<League>> = Suppliers
+        .memoizeWithExpiration({
+            leagueService.scanLeagues().toList()
+        }, Duration.ofDays(7))
+
     @GetMapping("/leagues")
     fun getAllLeagues(): List<League> {
-        return leagueService.scanLeagues().toList()
+        return allLeaguesCache.get()
     }
 
     private val leagueCache: LoadingCache<String, League> = CacheBuilder.newBuilder()
