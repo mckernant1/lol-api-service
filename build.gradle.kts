@@ -1,18 +1,21 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 import com.google.protobuf.gradle.id
 
 plugins {
-    id("org.springframework.boot") version "3.2.1"
-    id("io.spring.dependency-management") version "1.1.2"
+    id("org.springframework.boot") version "3.5.5"
+    id("io.spring.dependency-management") version "1.1.6"
     kotlin("jvm") version "1.8.21"
-    kotlin("plugin.spring") version "1.8.22"
+    kotlin("plugin.spring") version "2.1.21"
     id("com.google.protobuf") version "0.9.4"
     application
 }
 
 group = "com.mckernant1.lol"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_17
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
 
 application {
     mainClass.set("com.mckernant1.lol.esports.api.RunnerKt")
@@ -25,6 +28,7 @@ repositories {
 
 configurations.implementation {
     exclude("org.springframework.boot", "spring-boot-starter-logging")
+    exclude(group = "ch.qos.logback")
 }
 
 val gRpcVersion = "1.58.0"
@@ -44,15 +48,15 @@ dependencies {
 
     // Utils
     implementation("com.mckernant1.lol:esports-api:0.2.0")
-    implementation("com.mckernant1.commons:kotlin-utils:0.2.1")
-    implementation("com.mckernant1.commons:metrics:0.0.7")
-    implementation("com.fasterxml.jackson.core:jackson-databind:2.14.2")
-    implementation("com.google.guava:guava:33.2.1-jre")
+    implementation("com.mckernant1:kotlin-utils:0.3.0")
+    implementation("com.mckernant1.commons:metrics:0.0.10")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.20.0")
+    implementation("com.google.guava:guava:33.5.0-jre")
 
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("org.apache.logging.log4j:log4j-core:2.20.0")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.20.0")
+    implementation("org.apache.logging.log4j:log4j-core:2.24.3")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.24.3")
 
     // AWS
     implementation(platform("software.amazon.awssdk:bom:2.27.12"))
@@ -108,13 +112,6 @@ protobuf {
                 id("kotlin")
             }
         }
-    }
-}
-
-tasks.withType<KotlinCompile> {
-    kotlinOptions {
-        freeCompilerArgs = listOf("-Xjsr305=strict")
-        jvmTarget = "17"
     }
 }
 

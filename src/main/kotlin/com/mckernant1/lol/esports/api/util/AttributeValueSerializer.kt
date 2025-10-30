@@ -3,8 +3,6 @@ package com.mckernant1.lol.esports.api.util
 import com.fasterxml.jackson.core.JsonGenerator
 import com.fasterxml.jackson.databind.JsonSerializer
 import com.fasterxml.jackson.databind.SerializerProvider
-import com.mckernant1.commons.logging.Slf4j.logger
-import org.slf4j.Logger
 import software.amazon.awssdk.core.util.DefaultSdkAutoConstructList
 import software.amazon.awssdk.core.util.DefaultSdkAutoConstructMap
 import software.amazon.awssdk.services.dynamodb.model.AttributeValue
@@ -16,8 +14,6 @@ import java.math.BigDecimal
  */
 
 class AttributeValueSerializer private constructor() : JsonSerializer<AttributeValue>() {
-
-    private val logger: Logger = logger()
 
     @Throws(IOException::class)
     override fun serialize(av: AttributeValue?, gen: JsonGenerator, serializers: SerializerProvider) {
@@ -61,7 +57,7 @@ class AttributeValueSerializer private constructor() : JsonSerializer<AttributeV
             } else if (av.nul() != null) {
                 gen.writeNull()
             } else {
-                logger.error("MISSED DATA TYPE: $av");
+                throw RuntimeException("Unsupported attribute value $av")
             }
         }
     }

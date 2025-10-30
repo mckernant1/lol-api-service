@@ -25,7 +25,7 @@ class MetricsSubmission(
     fun submitMetrics() {
         logger.info("Submitting periodic metrics")
         for ((cacheName, cache) in classesToSubmit.flatMap { it.caches }) {
-            metrics.withDimensions(CACHE_NAME to cacheName) {
+            metrics.withNewMetrics(CACHE_NAME to cacheName) {
                 it.addCacheStats(cache.stats())
             }
         }
