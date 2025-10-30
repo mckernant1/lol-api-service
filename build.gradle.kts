@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "2.1.21"
-    id("com.google.protobuf") version "0.9.4"
+    id("com.google.protobuf") version "0.9.5"
     application
 }
 
