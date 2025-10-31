@@ -55,8 +55,8 @@ dependencies {
 
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("org.apache.logging.log4j:log4j-core:2.24.3")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.24.3")
+    implementation("org.apache.logging.log4j:log4j-core:2.25.2")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.2")
 
     // AWS
     implementation(platform("software.amazon.awssdk:bom:2.37.1"))
