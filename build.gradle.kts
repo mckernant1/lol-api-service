@@ -5,7 +5,7 @@ plugins {
     id("io.spring.dependency-management") version "1.1.6"
     kotlin("jvm") version "1.8.21"
     kotlin("plugin.spring") version "2.1.21"
-    id("com.google.protobuf") version "0.9.4"
+    id("com.google.protobuf") version "0.9.5"
     application
 }
 
@@ -31,7 +31,7 @@ configurations.implementation {
     exclude(group = "ch.qos.logback")
 }
 
-val gRpcVersion = "1.58.0"
+val gRpcVersion = "1.76.0"
 val googleProtobufVersion = "4.33.0"
 
 dependencies {
@@ -55,11 +55,11 @@ dependencies {
 
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.5")
-    implementation("org.apache.logging.log4j:log4j-core:2.24.3")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.24.3")
+    implementation("org.apache.logging.log4j:log4j-core:2.25.2")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.2")
 
     // AWS
-    implementation(platform("software.amazon.awssdk:bom:2.27.12"))
+    implementation(platform("software.amazon.awssdk:bom:2.37.1"))
     implementation("software.amazon.awssdk:dynamodb-enhanced")
     implementation("software.amazon.awssdk:cloudwatch")
 
