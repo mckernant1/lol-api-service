@@ -54,7 +54,7 @@ dependencies {
     implementation("com.google.guava:guava:33.5.0-jre")
 
     // Logging
-    implementation("org.slf4j:slf4j-api:2.0.5")
+    implementation("org.slf4j:slf4j-api:2.0.17")
     implementation("org.apache.logging.log4j:log4j-core:2.25.2")
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.2")
 
