@@ -3,7 +3,7 @@ import com.google.protobuf.gradle.id
 plugins {
     id("org.springframework.boot") version "3.5.5"
     id("io.spring.dependency-management") version "1.1.6"
-    kotlin("jvm") version "1.8.21"
+    kotlin("jvm") version "2.2.21"
     kotlin("plugin.spring") version "2.1.21"
     id("com.google.protobuf") version "0.9.5"
     application
