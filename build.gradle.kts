@@ -66,7 +66,7 @@ dependencies {
     // Protobuf
 
     implementation("io.grpc:grpc-protobuf:${gRpcVersion}")
-    implementation("io.grpc:grpc-kotlin-stub:1.3.0")
+    implementation("io.grpc:grpc-kotlin-stub:1.5.0")
     implementation("io.grpc:grpc-stub:${gRpcVersion}")
     implementation("io.grpc:grpc-services:${gRpcVersion}")
     protobuf("com.google.protobuf:protobuf-java:${googleProtobufVersion}")
@@ -94,7 +94,7 @@ protobuf {
             artifact = "io.grpc:protoc-gen-grpc-java:$gRpcVersion"
         }
         id("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.3.0:jdk8@jar"
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.5.0:jdk8@jar"
         }
     }
 
