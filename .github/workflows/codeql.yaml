@@ -49,6 +49,7 @@ jobs:
         if: matrix.language == 'actions'
         with:
           languages: ${{ matrix.language }}
+          config-file: ./.github/codeql/codeql-config.yaml
           dependency-caching: true
 
       - name: Build
