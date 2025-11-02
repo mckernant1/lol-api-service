@@ -32,7 +32,14 @@ class RequestLoggingFilter : OncePerRequestFilter() {
             filterChain.doFilter(request, response)
         }
 
-        logger.info("RequestURI: '${request.requestURI}' Method: '${request.method}' ResponseStatus: '${response.status}' RequestDuration: '${timeTaken.toMillis()}ms'")
+        if (
+            request.requestURI.matches("[\\w/]+".toRegex()) &&
+            request.method.matches("\\w+".toRegex())
+        ) {
+            logger.info("RequestURI: '${request.requestURI}' Method: '${request.method}' ResponseStatus: '${response.status}' RequestDuration: '${timeTaken.toMillis()}ms'")
+        } else {
+            logger.warn("Request had unfamiliar characters... Skipping logging")
+        }
         logger.info("END")
 
         MDC.remove("RequestId")
