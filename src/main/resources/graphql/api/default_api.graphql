@@ -13,23 +13,23 @@ type Query {
 
     leagues: [League]!
 
-    leagueById(leagueId: String): League
+    leagueById(leagueId: String!): League
 
     tournaments: [Tournament]!
 
-    tournamentById(tournamentId: String): Tournament
+    tournamentById(tournamentId: String!): Tournament
 
     matches: [Match]!
 
     players: [Player]!
 
-    playerById(teamId: String, playerId: String): Player
+    playerById(teamId: String!, playerId: String!): Player
 
-    playersById(playerId: String): [Player]
+    playersById(playerId: String!): [Player]
 
     teams: [Team]!
 
-    teamById(teamId: String): Team
+    teamById(teamId: String!): Team
 
 }
 
