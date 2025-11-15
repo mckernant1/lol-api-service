@@ -31,10 +31,14 @@ class GraphQLController(
     fun leagues(): List<League> = leagueService.scanLeagues().toList()
 
     @QueryMapping
-    fun leagueById(@Argument @NotBlank leagueId: String): League? = leagueService.getLeague(leagueId)
+    fun leagueById(
+        @Argument @NotBlank leagueId: String
+    ): League? = leagueService.getLeague(leagueId)
 
     @SchemaMapping
-    fun tournaments(league: League): List<Tournament> =
+    fun tournaments(
+        league: League
+    ): List<Tournament> =
         tournamentService.getTournamentsForLeague(league.leagueId).toList()
 
     // TOURNAMENT
@@ -43,10 +47,14 @@ class GraphQLController(
     fun tournaments(): List<Tournament> = tournamentService.scanTournaments().toList()
 
     @QueryMapping
-    fun tournamentById(@Argument @NotBlank tournamentId: String): Tournament? = tournamentService.getTournamentById(tournamentId)
+    fun tournamentById(
+        @Argument @NotBlank tournamentId: String
+    ): Tournament? = tournamentService.getTournamentById(tournamentId)
 
     @SchemaMapping
-    fun league(tournament: Tournament): League? = leagueService.getLeague(tournament.leagueId)
+    fun league(
+        tournament: Tournament
+    ): League? = leagueService.getLeague(tournament.leagueId)
 
     @SchemaMapping
     fun matches(tournament: Tournament): List<Match> =
@@ -69,15 +77,20 @@ class GraphQLController(
     fun players(): List<Player> = playerService.scanPlayers().toList()
 
     @QueryMapping
-    fun playerById(@Argument @NotBlank teamId: String, @Argument @NotBlank playerId: String): Player? =
-        playerService.getPlayerById(teamId, playerId)
+    fun playerById(
+        @Argument @NotBlank teamId: String,
+        @Argument @NotBlank playerId: String
+    ): Player? = playerService.getPlayerById(teamId, playerId)
 
     @QueryMapping
-    fun playersById(@Argument @NotBlank playerId: String): List<Player> =
-        playerService.getPlayersById(playerId).toList()
+    fun playersById(
+        @Argument @NotBlank playerId: String
+    ): List<Player> = playerService.getPlayersById(playerId).toList()
 
     @SchemaMapping
-    fun team(player: Player): Team? = teamService.getTeam(player.teamId!!)
+    fun team(
+        player: Player
+    ): Team? = teamService.getTeam(player.teamId!!)
 
     // TEAMS
 
@@ -85,10 +98,12 @@ class GraphQLController(
     fun teams(): List<Team> = teamService.scanTeams().toList()
 
     @QueryMapping
-    fun teamById(@Argument @NotBlank teamId: String): Team? = teamService.getTeam(teamId)
+    fun teamById(
+        @Argument @NotBlank teamId: String
+    ): Team? = teamService.getTeam(teamId)
 
     @SchemaMapping
-    fun players(team: Team): List<Player> = playerService.getPlayersOnTeam(team.teamId).toList()
-
-
+    fun players(
+        team: Team
+    ): List<Player> = playerService.getPlayersOnTeam(team.teamId).toList()
 }
