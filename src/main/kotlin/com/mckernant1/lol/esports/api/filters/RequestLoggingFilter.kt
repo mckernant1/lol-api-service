@@ -27,6 +27,14 @@ class RequestLoggingFilter : OncePerRequestFilter() {
 
         logger.info("START")
         response.addHeader("X-Request-Id", requestId)
+        if (
+            request.requestURI.matches("[\\w/]+".toRegex()) &&
+            request.method.matches("\\w+".toRegex())
+        ) {
+            logger.info("Start - RequestURI: '${request.requestURI}' Method: '${request.method}'")
+        } else {
+            logger.warn("Start - Request had unfamiliar characters... Skipping logging")
+        }
 
         val timeTaken = measureDuration {
             filterChain.doFilter(request, response)
@@ -36,9 +44,9 @@ class RequestLoggingFilter : OncePerRequestFilter() {
             request.requestURI.matches("[\\w/]+".toRegex()) &&
             request.method.matches("\\w+".toRegex())
         ) {
-            logger.info("RequestURI: '${request.requestURI}' Method: '${request.method}' ResponseStatus: '${response.status}' RequestDuration: '${timeTaken.toMillis()}ms'")
+            logger.info("End - RequestURI: '${request.requestURI}' Method: '${request.method}' ResponseStatus: '${response.status}' RequestDuration: '${timeTaken.toMillis()}ms'")
         } else {
-            logger.warn("Request had unfamiliar characters... Skipping logging")
+            logger.warn("End - Request had unfamiliar characters... Skipping logging")
         }
         logger.info("END")
 
