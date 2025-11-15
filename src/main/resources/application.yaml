@@ -12,11 +12,13 @@ spring:
   graphql:
     graphiql:
       enabled: true
-    path: /graphql
+      path: /graphiql
     schema:
       printer:
         enabled: true
       file-extensions: .graphql
+    http:
+      path: /graphql
 
 grpc:
   server:
