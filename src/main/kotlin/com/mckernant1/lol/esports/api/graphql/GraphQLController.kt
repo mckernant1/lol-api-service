@@ -90,7 +90,7 @@ class GraphQLController(
     @SchemaMapping
     fun team(
         player: Player
-    ): Team? = teamService.getTeam(player.teamId!!)
+    ): Team? = player.teamId?.let { teamService.getTeam(it) }
 
     // TEAMS
 
