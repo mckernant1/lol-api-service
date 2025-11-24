@@ -31,7 +31,7 @@ configurations.implementation {
     exclude(group = "ch.qos.logback")
 }
 
-val gRpcVersion = "1.76.0"
+val gRpcVersion = "1.77.0"
 val googleProtobufVersion = "4.33.0"
 
 dependencies {
