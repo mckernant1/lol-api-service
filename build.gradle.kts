@@ -32,7 +32,7 @@ configurations.implementation {
 }
 
 val gRpcVersion = "1.76.0"
-val googleProtobufVersion = "4.33.0"
+val googleProtobufVersion = "4.33.1"
 
 dependencies {
     // Spring
