@@ -17,7 +17,7 @@ import com.mckernant1.lol.matches.GetMatchesForTournamentRequest
 import com.mckernant1.lol.matches.GetMatchesForTournamentResponse
 import com.mckernant1.lol.matches.Match
 import com.mckernant1.lol.matches.MatchServiceGrpcKt
-import net.devh.boot.grpc.server.service.GrpcService
+import org.springframework.grpc.server.service.GrpcService
 import java.time.Duration
 import java.time.temporal.ChronoUnit
 

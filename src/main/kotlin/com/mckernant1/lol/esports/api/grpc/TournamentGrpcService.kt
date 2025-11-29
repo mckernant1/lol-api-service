@@ -21,7 +21,7 @@ import com.mckernant1.lol.tournament.GetTournamentResponse
 import com.mckernant1.lol.tournament.GetTournamentsForLeagueRequest
 import com.mckernant1.lol.tournament.GetTournamentsForLeagueResponse
 import com.mckernant1.lol.tournament.TournamentServiceGrpcKt
-import net.devh.boot.grpc.server.service.GrpcService
+import org.springframework.grpc.server.service.GrpcService
 import org.springframework.http.HttpStatus
 import org.springframework.web.server.ResponseStatusException
 import java.time.Duration

@@ -7,7 +7,7 @@ import com.mckernant1.lol.teams.GetTeamResponse
 import com.mckernant1.lol.teams.ListTeamsRequest
 import com.mckernant1.lol.teams.ListTeamsResponse
 import com.mckernant1.lol.teams.TeamServiceGrpcKt
-import net.devh.boot.grpc.server.service.GrpcService
+import org.springframework.grpc.server.service.GrpcService
 
 @GrpcService
 class TeamGrpcService(

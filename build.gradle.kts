@@ -34,6 +34,15 @@ configurations.implementation {
 val gRpcVersion = "1.76.0"
 val googleProtobufVersion = "4.33.0"
 
+extra["springGrpcVersion"] = "0.10.0"
+val kotlinStubVersion = "1.4.3"
+
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.grpc:spring-grpc-dependencies:${property("springGrpcVersion")}")
+    }
+}
+
 dependencies {
     // Spring
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
@@ -41,7 +50,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-graphql")
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.springframework.boot:spring-boot-starter-validation")
-    implementation("net.devh:grpc-server-spring-boot-starter:3.1.0.RELEASE")
+    implementation("org.springframework.grpc:spring-grpc-server-spring-boot-starter")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
@@ -88,14 +97,14 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${googleProtobufVersion}"
+        artifact = "com.google.protobuf:protoc"
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:$gRpcVersion"
+            artifact = "io.grpc:protoc-gen-grpc-java"
         }
         id("grpckt") {
-            artifact = "io.grpc:protoc-gen-grpc-kotlin:1.5.0:jdk8@jar"
+            artifact = "io.grpc:protoc-gen-grpc-kotlin:$kotlinStubVersion:jdk8@jar"
         }
     }
 

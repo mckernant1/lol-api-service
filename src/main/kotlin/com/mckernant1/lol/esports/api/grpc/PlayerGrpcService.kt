@@ -6,7 +6,7 @@ import com.mckernant1.lol.esports.api.util.toGrpc
 import com.mckernant1.lol.players.GetPlayersOnTeamRequest
 import com.mckernant1.lol.players.GetPlayersOnTeamResponse
 import com.mckernant1.lol.players.PlayerServiceGrpcKt
-import net.devh.boot.grpc.server.service.GrpcService
+import org.springframework.grpc.server.service.GrpcService
 
 @GrpcService
 class PlayerGrpcService(

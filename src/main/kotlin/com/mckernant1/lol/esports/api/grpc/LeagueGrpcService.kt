@@ -12,7 +12,7 @@ import com.mckernant1.lol.leagues.GetLeagueResponse
 import com.mckernant1.lol.leagues.LeagueServiceGrpcKt
 import com.mckernant1.lol.leagues.ListLeaguesRequest
 import com.mckernant1.lol.leagues.ListLeaguesResponse
-import net.devh.boot.grpc.server.service.GrpcService
+import org.springframework.grpc.server.service.GrpcService
 import java.time.Duration
 
 
