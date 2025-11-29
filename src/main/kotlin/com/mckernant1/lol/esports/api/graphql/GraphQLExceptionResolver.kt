@@ -14,7 +14,7 @@ class GraphQLExceptionResolver : DataFetcherExceptionResolverAdapter() {
     override fun resolveToSingleError(
         ex: Throwable,
         env: DataFetchingEnvironment
-    ): GraphQLError = when (ex) {
+    ): GraphQLError? = when (ex) {
         is ConstraintViolationException -> GraphqlErrorBuilder.newError()
             .errorType(ErrorType.InvalidSyntax)
             .message(ex.message)
