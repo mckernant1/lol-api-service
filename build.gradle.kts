@@ -37,10 +37,14 @@ val gRpcVersion = "1.76.0"
 val googleProtobufVersion = "4.33.0"
 val kotlinStubVersion = "1.4.3"
 
+dependencyManagement {
+    imports {
+        mavenBom("org.springframework.grpc:spring-grpc-dependencies:1.0.0")
+    }
+}
 
 dependencies {
     // Spring
-    implementation(platform("org.springframework.grpc:spring-grpc-dependencies:1.0.1-SNAPSHOT"))
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-graphql")
@@ -71,13 +75,13 @@ dependencies {
 
     // Protobuf
 
-    implementation("io.grpc:grpc-protobuf:${gRpcVersion}")
-    implementation("io.grpc:grpc-kotlin-stub:1.5.0")
-    implementation("io.grpc:grpc-stub:${gRpcVersion}")
-    implementation("io.grpc:grpc-services:${gRpcVersion}")
-    protobuf("com.google.protobuf:protobuf-java:${googleProtobufVersion}")
-    implementation("com.google.protobuf:protobuf-kotlin:${googleProtobufVersion}")
-    implementation("com.google.protobuf:protobuf-java-util:${googleProtobufVersion}")
+    implementation("io.grpc:grpc-protobuf")
+    implementation("io.grpc:grpc-kotlin-stub:${kotlinStubVersion}")
+    implementation("io.grpc:grpc-stub")
+    implementation("io.grpc:grpc-services")
+    protobuf("com.google.protobuf:protobuf-java")
+    implementation("com.google.protobuf:protobuf-kotlin")
+    implementation("com.google.protobuf:protobuf-java-util")
 
     // Test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
@@ -93,11 +97,11 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc:${googleProtobufVersion}"
+        artifact = "com.google.protobuf:protoc"
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java:${gRpcVersion}"
+            artifact = "io.grpc:protoc-gen-grpc-java"
         }
         id("grpckt") {
             artifact = "io.grpc:protoc-gen-grpc-kotlin:$kotlinStubVersion:jdk8@jar"
