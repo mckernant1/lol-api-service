@@ -1,7 +1,7 @@
 import com.google.protobuf.gradle.id
 
 plugins {
-    id("org.springframework.boot") version "3.5.7"
+    id("org.springframework.boot") version "4.0.1"
     kotlin("jvm") version "2.2.21"
     id("io.spring.dependency-management") version "1.1.7"
     kotlin("plugin.spring") version "2.2.21"
@@ -24,6 +24,8 @@ application {
 repositories {
     mavenCentral()
     maven(uri("https://mvn.mckernant1.com/release"))
+    maven(uri("https://repo.spring.io/milestone"))
+    maven(uri("https://repo.spring.io/snapshot"))
 }
 
 configurations.implementation {
@@ -33,18 +35,12 @@ configurations.implementation {
 
 val gRpcVersion = "1.76.0"
 val googleProtobufVersion = "4.33.0"
-
-extra["springGrpcVersion"] = "0.10.0"
 val kotlinStubVersion = "1.4.3"
 
-dependencyManagement {
-    imports {
-        mavenBom("org.springframework.grpc:spring-grpc-dependencies:${property("springGrpcVersion")}")
-    }
-}
 
 dependencies {
     // Spring
+    implementation(platform("org.springframework.grpc:spring-grpc-dependencies:1.0.1-SNAPSHOT"))
     implementation("org.springframework.boot:spring-boot-starter-data-rest")
     implementation("org.springframework.boot:spring-boot-starter-actuator")
     implementation("org.springframework.boot:spring-boot-starter-graphql")
@@ -65,8 +61,8 @@ dependencies {
 
     // Logging
     implementation("org.slf4j:slf4j-api:2.0.17")
-    implementation("org.apache.logging.log4j:log4j-core:2.25.2")
-    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.2")
+    implementation("org.apache.logging.log4j:log4j-core:2.25.3")
+    implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.3")
 
     // AWS
     implementation(platform("software.amazon.awssdk:bom:2.37.3"))
@@ -97,11 +93,11 @@ sourceSets {
 
 protobuf {
     protoc {
-        artifact = "com.google.protobuf:protoc"
+        artifact = "com.google.protobuf:protoc:${googleProtobufVersion}"
     }
     plugins {
         id("grpc") {
-            artifact = "io.grpc:protoc-gen-grpc-java"
+            artifact = "io.grpc:protoc-gen-grpc-java:${gRpcVersion}"
         }
         id("grpckt") {
             artifact = "io.grpc:protoc-gen-grpc-kotlin:$kotlinStubVersion:jdk8@jar"
