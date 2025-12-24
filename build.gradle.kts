@@ -34,7 +34,7 @@ configurations.implementation {
 }
 
 val gRpcVersion = "1.76.0"
-val googleProtobufVersion = "4.33.0"
+val googleProtobufVersion = "4.33.2"
 val kotlinStubVersion = "1.4.3"
 
 
