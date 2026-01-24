@@ -69,7 +69,7 @@ dependencies {
     implementation("org.apache.logging.log4j:log4j-slf4j-impl:2.25.3")
 
     // AWS
-    implementation(platform("software.amazon.awssdk:bom:2.40.16"))
+    implementation(platform("software.amazon.awssdk:bom:2.41.14"))
     implementation("software.amazon.awssdk:dynamodb-enhanced")
     implementation("software.amazon.awssdk:cloudwatch")
 
