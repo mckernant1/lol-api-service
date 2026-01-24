@@ -59,7 +59,7 @@ dependencies {
     // Utils
     implementation("com.mckernant1.lol:esports-api:0.2.2")
     implementation("com.mckernant1:kotlin-utils:0.3.16")
-    implementation("com.mckernant1.commons:metrics:0.0.10")
+    implementation("com.mckernant1.commons:metrics:0.1.1")
     implementation("com.fasterxml.jackson.core:jackson-databind:2.20.1")
     implementation("com.google.guava:guava:33.5.0-jre")
 
