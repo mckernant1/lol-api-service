@@ -5,7 +5,7 @@ import com.mckernant1.commons.metrics.Metrics
 import com.mckernant1.commons.metrics.impls.CloudWatchMetrics
 import org.springframework.context.annotation.Bean
 import org.springframework.context.annotation.Configuration
-import software.amazon.awssdk.services.cloudwatch.CloudWatchClient
+import software.amazon.awssdk.services.cloudwatch.CloudWatchAsyncClient
 
 @Configuration
 class MetricsConfig {
@@ -19,7 +19,7 @@ class MetricsConfig {
 
     @Bean
     fun metrics(
-        cloudWatchClient: CloudWatchClient,
+        cloudWatchClient: CloudWatchAsyncClient,
         dimensions: Set<Dimension>
     ): Metrics = CloudWatchMetrics(NAMESPACE, cloudWatchClient, dimensions)
 }

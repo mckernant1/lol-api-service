@@ -4,6 +4,8 @@ import com.mckernant1.commons.logging.Slf4j.logger
 import com.mckernant1.commons.metrics.Metrics
 import com.mckernant1.commons.metrics.guava.CacheMetrics.addCacheStats
 import com.mckernant1.lol.esports.api.metrics.PeriodicSubmitCacheStats
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.launch
 import org.springframework.scheduling.annotation.Scheduled
 import org.springframework.stereotype.Component
 import java.util.concurrent.TimeUnit
@@ -11,6 +13,7 @@ import java.util.concurrent.TimeUnit
 @Component
 class MetricsSubmission(
     private val classesToSubmit: List<PeriodicSubmitCacheStats>,
+    private val appScope: CoroutineScope,
     metrics: Metrics
 ) {
 
@@ -23,10 +26,12 @@ class MetricsSubmission(
 
     @Scheduled(fixedRate = 1, timeUnit = TimeUnit.DAYS)
     fun submitMetrics() {
-        logger.info("Submitting periodic metrics")
-        for ((cacheName, cache) in classesToSubmit.flatMap { it.caches }) {
-            metrics.withNewMetrics(CACHE_NAME to cacheName) {
-                it.addCacheStats(cache.stats())
+        appScope.launch {
+            logger.info("Submitting periodic metrics")
+            for ((cacheName, cache) in classesToSubmit.flatMap { it.caches }) {
+                metrics.withNewMetrics(CACHE_NAME to cacheName) {
+                    it.addCacheStats(cache.stats())
+                }
             }
         }
     }
