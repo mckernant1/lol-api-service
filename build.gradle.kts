@@ -39,7 +39,7 @@ val kotlinStubVersion = "1.5.0"
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.grpc:spring-grpc-dependencies:1.0.1")
+        mavenBom("org.springframework.grpc:spring-grpc-dependencies:1.0.2")
     }
 }
 
