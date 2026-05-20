@@ -1,7 +1,3 @@
-server:
-  error:
-    include-message: always
-
 management:
   endpoints:
     web:
@@ -19,6 +15,9 @@ spring:
       file-extensions: .graphql
     http:
       path: /graphql
+  web:
+    error:
+      include-message: never
 
 grpc:
   server:

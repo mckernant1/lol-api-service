@@ -51,6 +51,7 @@ dependencies {
     implementation("org.springframework.boot:spring-boot-starter-log4j2")
     implementation("org.springframework.boot:spring-boot-starter-validation")
     implementation("org.springframework.grpc:spring-grpc-server-spring-boot-starter")
+    implementation("org.springframework.boot:spring-boot-starter-security")
 
     // Kotlin
     implementation("org.jetbrains.kotlin:kotlin-reflect")
