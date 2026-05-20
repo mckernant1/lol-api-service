@@ -32,6 +32,8 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           push: true
+          cache-to: type=gha,mode=max
+          cache-from: type=gha
           tags: ${{ secrets.ECR_REPOSITORY_URI }}/lol-api-service:latest
           context: .
 
